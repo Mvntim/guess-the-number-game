@@ -40,7 +40,6 @@ const displayMessage = function (message) {
   document.querySelector('.message').textContent = message;
 };
 
-document.querySelector('.number').textContent = number; //---> // im moving this down to make it invisible in the box
 document.querySelector('.check').addEventListener('click', function () {
   const guess = Number(document.querySelector('.guess').value);
   console.log(guess, typeof guess);
@@ -49,9 +48,11 @@ document.querySelector('.check').addEventListener('click', function () {
   if (!guess) {
     displayMessage('No Number'); // with this if the box is empty the text will change to "No number"
     // When player wins
-  } else if (guess === number) {
+  }
+  if (guess === number) {
     document.querySelector('.message').textContent = 'Correct number!'; // with this if the number in the black box matches the number in the white box the text will change to "Correct number"
     document.querySelector('.number').textContent = number;
+    document.querySelector('.number').textContent = number; //---> // im moving this down to make it invisible in the box
 
     // MANIPULATING CSS STYLES
     document.querySelector('.number').style.backgroundColor = ' #09b451';
@@ -66,7 +67,11 @@ document.querySelector('.check').addEventListener('click', function () {
       document.querySelector('.message').textContent =
         guess > number ? 'Too high you fool!' : 'Too low'; // using a ternary operator to serve as an if else statement
       score = score - 1;
+
       document.querySelector('.score').textContent = score; // thisjust makes it that anytime you guess a wrong number your score will reduce - 1
+    } else if (guess > 20) {
+      document.querySelector('.message').textContent =
+        'Cmon ma guy thats not even in the game regulation';
     } else {
       document.querySelector('.message').textContent =
         'You have lost the game go home';
@@ -80,8 +85,9 @@ document.querySelector('.again').addEventListener('click', function () {
   score = 20;
   number = Math.trunc(Math.random() * 20) + 1;
 
+  document.querySelector('.number').style.backgroundColor = ' #fff';
   document.querySelector('.message').textContent = 'Start guessing...';
   document.querySelector('.score').textContent = score; // 'score' here means '20' too it reference it
   document.querySelector('.number').textContent = '?';
-  document.querySelector('.guess').textContent = ''; // the empty string signifies the absence of any value in the box
+  document.querySelector('.guess').value = ''; // the empty string signifies the absence of any value in the box
 });
